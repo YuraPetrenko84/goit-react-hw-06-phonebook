@@ -1,23 +1,27 @@
-import { GlobalStyle } from './GlobalStyles';
-import { Section } from './Section/Section';
-import { ContactsForm } from './Form/Form';
-import { ContactsList } from './Contacts/ContactsList/ContactsList';
-import { Filter } from './Filter/Filter';
+// redux
+import { useSelector } from 'react-redux';
+import { getContacts } from 'redux/selectors';
+// Components
+import ContactForm from './ContactForm';
+import Filter from './Filter';
+import ContactList from './ContactList';
 
-export const App = () => {
+export function App() {
+  const contacts = useSelector(getContacts);
+
   return (
-    <>
-      <GlobalStyle />
+    <div>
       <h1>Phonebook</h1>
-      <Section>
-        <ContactsForm />
-      </Section>
-      <Section title="Contacts">
+      <ContactForm />
+
+      <h2>Contacts</h2>
+
+      {contacts.length > 0 && (
         <>
-          <Filter />
-          <ContactsList />
+          <Filter></Filter>
+          <ContactList />
         </>
-      </Section>
-    </>
+      )}
+    </div>
   );
-};
+}

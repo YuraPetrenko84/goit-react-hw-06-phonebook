@@ -1,17 +1,24 @@
+import React from 'react';
+import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
-import { changeFilter } from 'redux/filterSlice';
+import { setFilter } from 'redux/filterSlice';
+// Генератор випадкових id
+const filterInputId = nanoid();
 
-export const Filter = () => {
+const Filter = () => {
   const dispatch = useDispatch();
 
   return (
-    <>
-      <p>Find contacts by name</p>
+    <label htmlFor={filterInputId}>
+      Find contact by name:
       <input
-        name="filterByName"
         type="text"
-        onChange={e => dispatch(changeFilter(e.target.value))}
+        name="filter"
+        onChange={event => dispatch(setFilter(event.target.value))}
+        id={filterInputId}
       />
-    </>
+    </label>
   );
 };
+
+export default Filter;
